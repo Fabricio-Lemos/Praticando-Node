@@ -1,0 +1,10 @@
+var funcSoma = require('./soma');
+var funcSub = require('./sub');
+var funcMulti = require('./multi');
+var funcDiv = require('./div');
+var a = 10;
+var b = 10;
+console.log(`A soma entre ${a} e ${b} é igual a: ${funcSoma(a,b)}`);
+console.log(`A subtração entre ${a} e ${b} é igual a: ${funcSub(a,b)}`);
+console.log(`A Multiplicação entre ${a} e ${b} é igual a: ${funcMulti(a,b)}`);
+console.log(`A Divisão entre ${a} e ${b} é igual a: ${funcDiv(a,b)}`);
