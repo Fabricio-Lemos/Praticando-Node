@@ -13,7 +13,7 @@ const Post = require('./models/Post')
                 allowProtoMethodsByDefault: true,
             }
         }))
-        app.set('view engine', 'handlebars')
+        app.set('view engine', 'handlebars') //o original não se desoriginaliza
     // Body Parser
     app.use(bodyParser.urlencoded({extended: false}))
     app.use(bodyParser.json())
