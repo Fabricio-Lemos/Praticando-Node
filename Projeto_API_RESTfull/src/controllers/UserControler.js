@@ -10,6 +10,34 @@ function genereteToken(params = {}){
     })
 }
 module.exports = {
+    async logout (req, res){
+        const islogged = 0
+        const id = req.params.user_id
+
+        const user = await User.findOne({where: {id}})
+
+        if(!user){
+            return res.status(400).send({
+                status: 0,
+                mensage: 'Usuário não encontrado'
+            })
+        }
+
+        const user_id = user.id
+
+        await User.update({
+            islogged
+        }, {
+            where: {
+                id: user_id
+            }
+        })
+
+        return res.status(200).send({
+            status: 1,
+            mensage: 'Usuário deslogado com sucesso',
+        })
+    },
     async login (req, res){
         const {password, email, islogged} = req.body
         const user = await User.findOne({where: {email}})
@@ -74,22 +102,22 @@ module.exports = {
         const {name, password, email} = req.body;
         const {user_id} = req.params;
 
-          await bcrypt.genSalt(10, function(err, salt){
-                    bcrypt.hash(password, salt, function(err, hash){
-                        const password = hash
-                        User.update({
-                            name, password, email
-                        }, {
-                            where: {
-                                id: user_id
-                            }
-                        })
-                        return res.status(200).send({
-                            status: 1,
-                            mensage: 'Usuário atualizado com sucesso'
-                        })
-                    })
+          bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(password, salt, function (err, hash) {
+                const password = hash
+                User.update({
+                    name, password, email
+                }, {
+                    where: {
+                        id: user_id
+                    }
+                })
+                return res.status(200).send({
+                    status: 1,
+                    mensage: 'Usuário atualizado com sucesso',
+                })
             })
+        })
     },
 
     async delete(req, res) {
